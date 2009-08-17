@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+<ModulePrefs title="Pentagoo">
+	<Require feature="wave-preview" /> 
+</ModulePrefs>
+<Content type="html">
+<![CDATA[
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
+	Hello, Wave!
+]]>
+</Content>
+</Module>
