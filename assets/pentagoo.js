@@ -103,6 +103,15 @@ var Pentagoo = {
 	},
 	
 	stateUpdated: function(){
+	},
+	
+	boardCover: function(){
+	},
+	
+	place: function(){
+	},
+	
+	rotate: function(){
 	}
 	
 };
