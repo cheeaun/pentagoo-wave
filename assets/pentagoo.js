@@ -1,4 +1,10 @@
 var Pentagoo = {
+
+	options:{
+		size: 6,	// board size (width and length)
+		subboardSize: 3,	// subboard size
+		winLength: 5	// number of straight marbles to indicate winning
+	},
 	
 	init: function(){
 		var self = this;
