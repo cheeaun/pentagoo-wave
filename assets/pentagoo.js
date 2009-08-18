@@ -1,11 +1,12 @@
 var Pentagoo = {
 	
 	init: function(){
+		var self = this;
 		gadgets.util.registerOnLoadHandler(function(){
 			if (wave && wave.isInWaveContainer()){
-				this.initStuff();
-				this.generateEvents();
-				wave.setStateCallback(this.stateUpdated);
+				self.initStuff();
+				self.generateEvents();
+				wave.setStateCallback(self.stateUpdated);
 			}
 		});
 	},
