@@ -12,7 +12,6 @@ var Pentagoo = {
 			if (wave && wave.isInWaveContainer()){
 				self.initStuff();
 				self.generateEvents();
-				alert('loaded');
 				wave.setStateCallback(self.stateUpdated);
 			}
 		});
@@ -37,7 +36,6 @@ var Pentagoo = {
 
 		// Board spaces
 		$$('.subboard td').addEvent('click', function(){
-			alert('click');
 			var y = this.id.charAt(2).toInt();
 			var x = this.id.charAt(3).toInt();
 			self.place(x, y);
@@ -140,13 +138,13 @@ var Pentagoo = {
 			if (this.lastMarble) $('s-'+this.lastMarble).removeClass('last');
 
 			// Indicate last marble
-			this.lastMarble = ''+y+x;
+			this.lastMarble = '' + y + x;
 			
 			wave.getState().submitDelta({
-				boardMatrix: this.boardMatrix,
-				player: this.player,
+				boardMatrix: JSON.encode(this.boardMatrix),
+				player: '' + this.player,
 				move: 'place-' + x + y,
-				lastMarble: '' + y + x
+				lastMarble: this.lastMarble
 			});
 			
 			// Add the marble for current player
