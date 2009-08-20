@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/pentagoo.css">
 <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
 <script src="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/pentagoo.js"></script>
+<div id="container">
+<div id="status"></div>
 <div id="board-cover"></div>
 <table id="pentagoo-board">
 <tr>
@@ -19,19 +21,19 @@
 		</p>
 		<table class="subboard" id="sb-1">
 		<tr>
-		<td id="s-00"><span></span></td>
-		<td id="s-01"><span></span></td>
-		<td id="s-02"><span></span></td>
+		<td id="s-00" class="space"><span></span></td>
+		<td id="s-01" class="space"><span></span></td>
+		<td id="s-02" class="space"><span></span></td>
 		</tr>
 		<tr>
-		<td id="s-10"><span></span></td>
-		<td id="s-11"><span></span></td>
-		<td id="s-12"><span></span></td>
+		<td id="s-10" class="space"><span></span></td>
+		<td id="s-11" class="space"><span></span></td>
+		<td id="s-12" class="space"><span></span></td>
 		</tr>
 		<tr>
-		<td id="s-20"><span></span></td>
-		<td id="s-21"><span></span></td>
-		<td id="s-22"><span></span></td>
+		<td id="s-20" class="space"><span></span></td>
+		<td id="s-21" class="space"><span></span></td>
+		<td id="s-22" class="space"><span></span></td>
 		</tr>
 		</table>
 		</div>
@@ -44,19 +46,19 @@
 		</p>
 		<table class="subboard" id="sb-2">
 		<tr>
-		<td id="s-03"><span></span></td>
-		<td id="s-04"><span></span></td>
-		<td id="s-05"><span></span></td>
+		<td id="s-03" class="space"><span></span></td>
+		<td id="s-04" class="space"><span></span></td>
+		<td id="s-05" class="space"><span></span></td>
 		</tr>
 		<tr>
-		<td id="s-13"><span></span></td>
-		<td id="s-14"><span></span></td>
-		<td id="s-15"><span></span></td>
+		<td id="s-13" class="space"><span></span></td>
+		<td id="s-14" class="space"><span></span></td>
+		<td id="s-15" class="space"><span></span></td>
 		</tr>
 		<tr>
-		<td id="s-23"><span></span></td>
-		<td id="s-24"><span></span></td>
-		<td id="s-25"><span></span></td>
+		<td id="s-23" class="space"><span></span></td>
+		<td id="s-24" class="space"><span></span></td>
+		<td id="s-25" class="space"><span></span></td>
 		</tr>
 		</table>
 		</div>
@@ -67,19 +69,19 @@
 		<div>
 		<table class="subboard" id="sb-3">
 		<tr>
-		<td id="s-30"><span></span></td>
-		<td id="s-31"><span></span></td>
-		<td id="s-32"><span></span></td>
+		<td id="s-30" class="space"><span></span></td>
+		<td id="s-31" class="space"><span></span></td>
+		<td id="s-32" class="space"><span></span></td>
 		</tr>
 		<tr>
-		<td id="s-40"><span></span></td>
-		<td id="s-41"><span></span></td>
-		<td id="s-42"><span></span></td>
+		<td id="s-40" class="space"><span></span></td>
+		<td id="s-41" class="space"><span></span></td>
+		<td id="s-42" class="space"><span></span></td>
 		</tr>
 		<tr>
-		<td id="s-50"><span></span></td>
-		<td id="s-51"><span></span></td>
-		<td id="s-52"><span></span></td>
+		<td id="s-50" class="space"><span></span></td>
+		<td id="s-51" class="space"><span></span></td>
+		<td id="s-52" class="space"><span></span></td>
 		</tr>
 		</table>
 		<p class="rotation-buttons">
@@ -92,19 +94,19 @@
 		<div>
 		<table class="subboard" id="sb-4">
 		<tr>
-		<td id="s-33"><span></span></td>
-		<td id="s-34"><span></span></td>
-		<td id="s-35"><span></span></td>
+		<td id="s-33" class="space"><span></span></td>
+		<td id="s-34" class="space"><span></span></td>
+		<td id="s-35" class="space"><span></span></td>
 		</tr>
 		<tr>
-		<td id="s-43"><span></span></td>
-		<td id="s-44"><span></span></td>
-		<td id="s-45"><span></span></td>
+		<td id="s-43" class="space"><span></span></td>
+		<td id="s-44" class="space"><span></span></td>
+		<td id="s-45" class="space"><span></span></td>
 		</tr>
 		<tr>
-		<td id="s-53"><span></span></td>
-		<td id="s-54"><span></span></td>
-		<td id="s-55"><span></span></td>
+		<td id="s-53" class="space"><span></span></td>
+		<td id="s-54" class="space"><span></span></td>
+		<td id="s-55" class="space"><span></span></td>
 		</tr>
 		</table>
 		<p class="rotation-buttons">
@@ -118,14 +120,15 @@
 
 <ul id="player-labels">
 <li id="player-1-label">
-	<img src="images/tiny-white-piece.png" width="12" height="12" alt="(White)" /> Player 1
+	<img src="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/images/tiny-white-piece.png" width="12" height="12" alt="(White)" /> Player 1
 	<span id="player-1-type">Human</span>
 </li>
 <li id="player-2-label">
-	<img src="images/tiny-black-piece.png" width="12" height="12" alt="(Black)" /> Player 2
+	<img src="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/images/tiny-black-piece.png" width="12" height="12" alt="(Black)" /> Player 2
 	<span id="player-2-type">Human</span>
 </li>
 </ul>
+</div>
 ]]>
 </Content>
 </Module>

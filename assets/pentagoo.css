@@ -1,3 +1,18 @@
+body{
+font-size: .7em;
+font-family: "century gothic", arial, sans-serif;
+margin: 0;
+padding: 0;
+}
+
+/* CONTAINER */
+
+#container{
+width: 520px;
+height: 520px;
+position: relative;
+}
+
 /* BOARD */
 
 #board-cover,
@@ -116,7 +131,7 @@ background-image: url(images/black-marble.png);
 background-image: url(images/space-select.png);
 cursor: pointer;
 }
-.subboard-container table td.highlight{
+.subboard-container table td:hover{
 background-image: url(images/marble-select.png);
 }
 
@@ -125,6 +140,7 @@ background-image: url(images/marble-select.png);
 .subboard-container .rotation-buttons{
 z-index: 30;
 background-image: url(images/dummy.png); /* fix IE bug with opaque elements */
+visibility: hidden;
 }
 
 .rotation-buttons a{
@@ -143,7 +159,7 @@ cursor: pointer;
 left: 30px;
 bottom: 30px;
 }
-.rotation-buttons .rotate-left.highlight{
+.rotation-buttons .rotate-left:hover{
 background-position: bottom left;
 }
 
@@ -152,7 +168,7 @@ background-position: top right;
 right: 30px;
 top: 30px;
 }
-.rotation-buttons .rotate-right.highlight{
+.rotation-buttons .rotate-right:hover{
 background-position: bottom right;
 }
 
@@ -166,7 +182,6 @@ padding: 0;
 #player-labels li{
 position: absolute;
 bottom: 0;
-left: 100px;
 z-index: 100;
 width: 200px;
 margin-left: 30px;
@@ -196,4 +211,19 @@ border-left: 1px solid #ddd;
 padding-left: .5em;
 margin-left: .5em;
 line-height: 1em;
+}
+
+/* STATUS */
+
+#status{
+position: absolute;
+left: 100px;
+font-weight: bold;
+color: #000;
+background-color: #FFFFCB;
+border-bottom: 1px solid #FFFF73;
+z-index: 200;
+width: 520px;
+padding: 5px 0;
+text-align: center;
 }
