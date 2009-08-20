@@ -55,6 +55,7 @@ var Pentagoo = {
 	},
 	
 	stateUpdated: function(){
+		alert('stateUpdated');
 		var player = wave.getState().get('player', 1);
 		this.setPlayer(player);
 		
