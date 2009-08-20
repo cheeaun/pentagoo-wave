@@ -6,6 +6,7 @@
 <Content type="html">
 <![CDATA[
 <link rel="stylesheet" href="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/pentagoo.css">
+<script src="http://wave-api.appspot.com/public/wave.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
 <script src="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/pentagoo.js"></script>
 <div id="container">
