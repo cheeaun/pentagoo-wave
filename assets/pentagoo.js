@@ -7,14 +7,11 @@ var Pentagoo = {
 	},
 	
 	init: function(){
-		var self = this;
-		gadgets.util.registerOnLoadHandler(function(){
-			if (wave && wave.isInWaveContainer()){
-				self.initStuff();
-				self.generateEvents();
-				wave.setStateCallback(self.stateUpdated);
-			}
-		});
+		if (wave && wave.isInWaveContainer()){
+//			this.initStuff();
+//			this.generateEvents();
+			wave.setStateCallback(this.stateUpdated);
+		}
 	},
 	
 	initStuff: function(){
@@ -56,6 +53,7 @@ var Pentagoo = {
 	
 	stateUpdated: function(){
 		alert('stateUpdated');
+		/*
 		var player = wave.getState().get('player', 1);
 		this.setPlayer(player);
 		
@@ -125,6 +123,7 @@ var Pentagoo = {
 		
 		var lastMarble = wave.getState().get('lastMarble');
 		if (lastMarble) $('s-' + lastMarble).addClass('last');
+		*/
 	},
 	
 	// Place marble
@@ -387,4 +386,4 @@ var Pentagoo = {
 	
 };
 
-Pentagoo.init();
+gadgets.util.registerOnLoadHandler(Pentagoo.init);
