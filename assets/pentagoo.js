@@ -130,6 +130,7 @@ var Pentagoo = {
 	
 	// Place marble
 	place: function(x, y){
+		console.log('p');
 		this.move = 'p';
 		
 		if (this.boardMatrix[y][x] == 0){
