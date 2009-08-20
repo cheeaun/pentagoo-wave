@@ -8,9 +8,9 @@ var Pentagoo = {
 	
 	init: function(){
 		if (wave && wave.isInWaveContainer()){
-//			this.initStuff();
-//			this.generateEvents();
-			wave.setStateCallback(this.stateUpdated);
+			this.initStuff();
+			this.generateEvents();
+			wave.setStateCallback(Pentagoo.stateUpdated);
 		}
 	},
 	
@@ -53,7 +53,6 @@ var Pentagoo = {
 	
 	stateUpdated: function(){
 		alert('stateUpdated');
-		/*
 		var player = wave.getState().get('player', 1);
 		this.setPlayer(player);
 		
@@ -123,7 +122,6 @@ var Pentagoo = {
 		
 		var lastMarble = wave.getState().get('lastMarble');
 		if (lastMarble) $('s-' + lastMarble).addClass('last');
-		*/
 	},
 	
 	// Place marble
