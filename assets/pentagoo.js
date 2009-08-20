@@ -139,6 +139,8 @@ var Pentagoo = {
 			// Indicate last marble
 			this.lastMarble = '' + y + x;
 			
+			console.log(wave);
+			console.log(wave.getState());
 			wave.getState().submitDelta({
 				boardMatrix: JSON.encode(this.boardMatrix),
 				player: '' + this.player,
