@@ -9,10 +9,13 @@ var Pentagoo = new Class({
 	},
 	
 	initialize: function(){
+		var self = this;
 		if (wave && wave.isInWaveContainer()){
 			this.initStuff();
 			this.generateEvents();
-			wave.setStateCallback(this.stateUpdated);
+			wave.setStateCallback(function(){
+				self.stateUpdated();
+			});
 		}
 	},
 	
