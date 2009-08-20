@@ -55,12 +55,10 @@ var Pentagoo = {
 	},
 	
 	stateUpdated: function(){
-		var state = wave.getState();
-		
-		var player = state.get('player', 1);
+		var player = wave.getState().get('player', 1);
 		this.setPlayer(player);
 		
-		var boardMatrix = state.get('boardMatrix');
+		var boardMatrix = wave.getState().get('boardMatrix');
 		if (boardMatrix && $type(boardMatrix) == 'array'){
 				for (var y=0; y<this.options.size; y++){
 					for (var x=0; x<this.options.size; x++){
@@ -70,8 +68,8 @@ var Pentagoo = {
 				}
 		}
 		
-		var game = state.get('game');
-		var winningMarbles = state.get('winningMarbles');
+		var game = wave.getState().get('game');
+		var winningMarbles = wave.getState().get('winningMarbles');
 		if (game){ // 1: P1 wins, 2: P2 wins, 3: P1 & P2 win, 4: Draw (no one wins)
 			// Update game status
 			var status = '';
@@ -96,7 +94,7 @@ var Pentagoo = {
 			return;
 		}
 		
-		var move = state.get('move');
+		var move = wave.getState().get('move');
 		if (move){
 			var m = move.split('-');
 			move = m[0];
@@ -124,7 +122,7 @@ var Pentagoo = {
 			}
 		}
 		
-		var lastMarble = state.get('lastMarble');
+		var lastMarble = wave.getState().get('lastMarble');
 		if (lastMarble) $('s-' + lastMarble).addClass('last');
 	},
 	
@@ -139,8 +137,6 @@ var Pentagoo = {
 			// Indicate last marble
 			this.lastMarble = '' + y + x;
 			
-			console.log(wave);
-			console.log(wave.getState());
 			wave.getState().submitDelta({
 				boardMatrix: JSON.encode(this.boardMatrix),
 				player: '' + this.player,
