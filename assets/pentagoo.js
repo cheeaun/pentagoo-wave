@@ -36,6 +36,7 @@ var Pentagoo = {
 
 		// Board spaces
 		$$('.subboard td').addEvent('click', function(){
+			alert('click');
 			var y = this.id.charAt(2).toInt();
 			var x = this.id.charAt(3).toInt();
 			self.place(x, y);
@@ -130,7 +131,7 @@ var Pentagoo = {
 	
 	// Place marble
 	place: function(x, y){
-		console.log('p');
+		wave.log('p');
 		this.move = 'p';
 		
 		if (this.boardMatrix[y][x] == 0){
