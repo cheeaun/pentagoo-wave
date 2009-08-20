@@ -127,7 +127,7 @@ background-image: url(images/white-marble.png);
 background-image: url(images/black-marble.png);
 }
 
-.subboard-container table td.space.highlight{
+.subboard-container table td.space:hover{
 background-image: url(images/space-select.png);
 cursor: pointer;
 }
