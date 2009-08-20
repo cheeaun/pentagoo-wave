@@ -1,5 +1,7 @@
 var Pentagoo = new Class({
-
+	
+	Implements: [Options],
+	
 	options: {
 		size: 6,	// board size (width and length)
 		subboardSize: 3,	// subboard size
