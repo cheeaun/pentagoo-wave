@@ -12,6 +12,7 @@ var Pentagoo = {
 			if (wave && wave.isInWaveContainer()){
 				self.initStuff();
 				self.generateEvents();
+				alert('loaded');
 				wave.setStateCallback(self.stateUpdated);
 			}
 		});
