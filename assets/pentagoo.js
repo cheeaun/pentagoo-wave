@@ -1,4 +1,4 @@
-var Pentagoo = {
+var Pentagoo = new Class({
 
 	options:{
 		size: 6,	// board size (width and length)
@@ -10,7 +10,7 @@ var Pentagoo = {
 		if (wave && wave.isInWaveContainer()){
 			this.initStuff();
 			this.generateEvents();
-			wave.setStateCallback(Pentagoo.stateUpdated);
+			wave.setStateCallback(this.stateUpdated);
 		}
 	},
 	
@@ -382,6 +382,6 @@ var Pentagoo = {
 		}
 	},
 	
-};
+});
 
-gadgets.util.registerOnLoadHandler(Pentagoo.init);
+gadgets.util.registerOnLoadHandler(new Pentagoo());
