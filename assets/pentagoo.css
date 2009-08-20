@@ -5,6 +5,15 @@ margin: 0;
 padding: 0;
 }
 
+a img, img{
+border: 0;
+vertical-align: middle;
+}
+
+table{
+border-collapse: collapse;
+}
+
 /* CONTAINER */
 
 #container{
