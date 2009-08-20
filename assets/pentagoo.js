@@ -1,12 +1,12 @@
 var Pentagoo = new Class({
 
-	options:{
+	options: {
 		size: 6,	// board size (width and length)
 		subboardSize: 3,	// subboard size
 		winLength: 5	// number of straight marbles to indicate winning
 	},
 	
-	init: function(){
+	initialize: function(){
 		if (wave && wave.isInWaveContainer()){
 			this.initStuff();
 			this.generateEvents();
@@ -384,4 +384,6 @@ var Pentagoo = new Class({
 	
 });
 
-gadgets.util.registerOnLoadHandler(new Pentagoo());
+gadgets.util.registerOnLoadHandler(function(){
+	new Pentagoo();
+});
