@@ -35,7 +35,7 @@ var Pentagoo = {
 		var self = this;
 
 		// Board spaces
-		$$('.subboard td').addEvents('click', function(){
+		$$('.subboard td').addEvent('click', function(){
 			var y = this.id.charAt(2).toInt();
 			var x = this.id.charAt(3).toInt();
 			self.place(x, y);
