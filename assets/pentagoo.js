@@ -323,7 +323,7 @@ var Pentagoo = {
 			boardMatrix: this.boardMatrix,
 			player: this.player,
 			game: this.game,
-			winningMarbles: [].combine(this.winningMarbles); // Array.unique
+			winningMarbles: [].combine(this.winningMarbles) // Array.unique
 		});
 	},
 
