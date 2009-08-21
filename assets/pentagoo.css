@@ -20,6 +20,7 @@ border-collapse: collapse;
 width: 520px;
 height: 520px;
 position: relative;
+border: 3px solid #dceefe;
 }
 
 /* BOARD */
@@ -208,7 +209,7 @@ font-size: 1.1em;
 }
 
 #player-labels #player-2-label{
-left: 360px;
+left: 260px;
 }
 
 #player-1-type,
@@ -235,4 +236,5 @@ z-index: 200;
 width: 520px;
 padding: 5px 0;
 text-align: center;
+display: none;
 }

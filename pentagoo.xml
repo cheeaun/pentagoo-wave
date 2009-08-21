@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-<ModulePrefs title="Pentagoo" height="600">
+<ModulePrefs title="Pentagoo" height="700">
 	<Require feature="rpc" /> 
 </ModulePrefs>
 <Content type="html">
 <![CDATA[
-<link rel="stylesheet" href="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/pentagoo.css">
+<link rel="stylesheet" href="http://cheeaun.com/projects/pentagoo/wave/assets/pentagoo.css?3">
 <script src="http://wave-api.appspot.com/public/wave.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
-<script src="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/pentagoo.js"></script>
+<script src="http://cheeaun.com/projects/pentagoo/wave/assets/domassistant.js"></script>
+<script src="http://cheeaun.com/projects/pentagoo/wave/assets/pentagoo.js?86"></script>
+<div id="debug" style="display: none;">DEBUG</div>
 <div id="container">
 <div id="status"></div>
 <div id="board-cover"></div>
@@ -17,8 +18,8 @@
 	<td id="sb-c-1" class="subboard-container">
 		<div>
 		<p class="rotation-buttons">
-		<a id="rb-00" class="rotate-left" title="Rotate Left">Rotate Left</a>
-		<a id="rb-01" class="rotate-right" title="Rotate Right">Rotate Right</a>
+		<a id="rb-0l" class="rotate-left" title="Rotate Left">Rotate Left</a>
+		<a id="rb-0r" class="rotate-right" title="Rotate Right">Rotate Right</a>
 		</p>
 		<table class="subboard" id="sb-1">
 		<tr>
@@ -42,8 +43,8 @@
 	<td id="sb-c-2" class="subboard-container">
 		<div>
 		<p class="rotation-buttons">
-		<a id="rb-02" class="rotate-left" title="Rotate Left">Rotate Left</a>
-		<a id="rb-03" class="rotate-right" title="Rotate Right">Rotate Right</a>
+		<a id="rb-1l" class="rotate-left" title="Rotate Left">Rotate Left</a>
+		<a id="rb-1r" class="rotate-right" title="Rotate Right">Rotate Right</a>
 		</p>
 		<table class="subboard" id="sb-2">
 		<tr>
@@ -86,8 +87,8 @@
 		</tr>
 		</table>
 		<p class="rotation-buttons">
-		<a id="rb-10" class="rotate-left" title="Rotate Left">Rotate Left</a>
-		<a id="rb-11" class="rotate-right" title="Rotate Right">Rotate Right</a>
+		<a id="rb-2l" class="rotate-left" title="Rotate Left">Rotate Left</a>
+		<a id="rb-2r" class="rotate-right" title="Rotate Right">Rotate Right</a>
 		</p>
 		</div>
 	</td>
@@ -111,8 +112,8 @@
 		</tr>
 		</table>
 		<p class="rotation-buttons">
-		<a id="rb-12" class="rotate-left" title="Rotate Left">Rotate Left</a>
-		<a id="rb-13" class="rotate-right" title="Rotate Right">Rotate Right</a>
+		<a id="rb-3l" class="rotate-left" title="Rotate Left">Rotate Left</a>
+		<a id="rb-3r" class="rotate-right" title="Rotate Right">Rotate Right</a>
 		</p>
 		</div>
 	</td>
@@ -121,11 +122,11 @@
 
 <ul id="player-labels">
 <li id="player-1-label">
-	<img src="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/images/tiny-white-piece.png" width="12" height="12" alt="(White)" /> Player 1
+	<img src="http://cheeaun.com/projects/pentagoo/wave/assets/images/tiny-white-piece.png" width="12" height="12" alt="(White)" /> Player 1
 	<span id="player-1-type">Human</span>
 </li>
 <li id="player-2-label">
-	<img src="http://github.com/cheeaun/pentagoo-wave/raw/master/assets/images/tiny-black-piece.png" width="12" height="12" alt="(Black)" /> Player 2
+	<img src="http://cheeaun.com/projects/pentagoo/wave/assets/images/tiny-black-piece.png" width="12" height="12" alt="(Black)" /> Player 2
 	<span id="player-2-type">Human</span>
 </li>
 </ul>
