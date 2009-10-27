@@ -5,24 +5,15 @@ var DEBUG = true;
 var arrayUnique = function(arr){
 	var a = [];
 	var l = arr.length;
-	for(var i=0; i<l; i++) {
-		for(var j=i+1; j<l; j++) {
+	for (var i=0; i<l; i++){
+		for (var j=i+1; j<l; j++){
 			// If this[i] is found later in the array
-			if (arr[i] === arr[j])
-				j = ++i;
+			if (arr[i] === arr[j]) j = ++i;
 		}
 		a.push(arr[i]);
 	}
 	return a;
 };
-
-if (DEBUG) DOMAssistant.DOMReady(function(){
-	$('#debug').setStyle({
-		display: 'block',
-		height: 100,
-		overflow: 'auto'
-	});
-});
 
 var debug = function(text){
 	if (!DEBUG || !text) return;
@@ -42,8 +33,13 @@ var p = window.Pentagoo = {
 	init: function(){
 		if (wave && wave.isInWaveContainer()){
 			p.initStuff();
+			p.preloadImages();
 			p.generateEvents();
 			wave.setStateCallback(p.stateUpdated);
+			wave.setParticipantCallback(function(){
+					p.stateUpdated('participant');
+			});
+			wave.setModeCallback(p.modeUpdated);
 		}
 	},
 	
@@ -58,9 +54,47 @@ var p = window.Pentagoo = {
 		p.game = 0;
 
 		p.boardCover(false);
+		p.playerBoardCover(true);
+	},
+	
+	preloadImages: function(){
+		var images = [
+			'space-select',
+			'white-marble',
+			'black-marble',
+			'rotate-arrows',
+			'highlight-marble',
+			'marble-select',
+			'pentago-subboard-15deg',
+			'pentago-subboard-30deg',
+			'pentago-subboard-45deg',
+			'pentago-subboard-60deg',
+			'pentago-subboard-75deg',
+			'pentago-subboard-90deg'
+		];
+		if (document.images){
+			for (var i=0, l=images.length; i<l; i++){
+				var im = new Image();
+				im.src = 'http://cheeaun.com/projects/pentagoo/wave/assets/images/' + images[i] + '.png';
+			}
+		}
 	},
 	
 	generateEvents: function(){
+		// Player buttons
+		$('#player-1').addEvent('click', function(){
+			wave.getState().submitDelta({
+				player1: wave.getViewer().getId(),
+				player2: p.player2 || ''
+			});
+		});
+		$('#player-2').addEvent('click', function(){
+			wave.getState().submitDelta({
+				player1: p.player1 || '',
+				player2: wave.getViewer().getId()
+			});
+		});
+		
 		// Board spaces
 		$('.subboard td').addEvent('click', function(){
 			var y = parseInt(this.id.charAt(2));
@@ -76,14 +110,71 @@ var p = window.Pentagoo = {
 		});
 	},
 	
-	stateUpdated: function(){
-		debug('stateUpdated');
+	stateUpdated: function(callback){
+		debug(((callback == 'participant') ? 'Participant' : 'State') + ' Updated: ' + (+new Date()) + ' ------------------------------');
+		var state = wave.getState();
 		
-		var player = parseInt(wave.getState().get('player', '1'));
+		if (!state){
+			debug('no state');
+			$('#play-type').setStyle('display', 'block');
+			return;
+		}
+		
+		var viewer = wave.getViewer();
+		var viewerID = viewer.getId();
+		
+		// only show this to The One
+		if (!p.debugRunOnce){
+			if (/cheeaun.*?@/i.test(viewerID)) $('#debug').setStyle('display', 'block');
+			p.debugRunOnce = true;
+		}
+		
+		var player1 = state.get('player1');
+		debug('player1: ' + player1);
+		
+		if (player1){
+			p.player1 = player1;
+			$$('player-1').disabled = true;
+			$$('player-1-type').innerHTML = wave.getParticipantById(player1).getDisplayName();
+		} else {
+			$$('player-1').disabled = false;
+			$$('player-1-type').innerHTML = 'Human';
+		}
+		
+		var player2 = state.get('player2');
+		debug('player2: ' + player2);
+		
+		if (player2){
+			p.player2 = player2;
+			$$('player-2').disabled = true;
+			$$('player-2-type').innerHTML = wave.getParticipantById(player2).getDisplayName();
+		} else {
+			$$('player-2').disabled = false;
+			$$('player-2-type').innerHTML = 'Human';
+		}
+		
+		if (!player1 || !player2){
+			$('#play-type').setStyle('display', 'block');
+		} else {
+			$('#play-type').setStyle('display', 'none');
+		}
+		
+		var player = parseInt(state.get('player', '1'));
 		debug('player: ' + player);
 		p.setPlayer(player);
 		
-		var boardMatrix = wave.getState().get('boardMatrix');
+		if (player == 1 && viewerID == p.player1){
+			debug('You are player 1');
+			p.playerBoardCover(false);
+		} else if (player == 2 && viewerID == p.player2){
+			debug('You are player 2');
+			p.playerBoardCover(false);
+		} else {
+			debug('You are not any player');
+			p.playerBoardCover(true);
+		}
+		
+		var boardMatrix = state.get('boardMatrix');
 		if (boardMatrix){
 			debug(boardMatrix);
 			p.boardMatrix = gadgets.json.parse(boardMatrix);
@@ -94,10 +185,12 @@ var p = window.Pentagoo = {
 					$('#s-'+y+x)[0].className = yx ? ('p' + yx) : 'space';
 				}
 			}
+		} else { // clear the board
+			$('#pentagoo-board td').removeClass('p1').removeClass('p2').removeClass('last');
 		}
 		
-		var game = parseInt(wave.getState().get('game', '0'));
-		var winningMarbles = wave.getState().get('winningMarbles');
+		var game = parseInt(state.get('game', '0'));
+		var winningMarbles = state.get('winningMarbles');
 		if (game){ // 1: P1 wins, 2: P2 wins, 3: P1 & P2 win, 4: Draw (no one wins)
 			debug('game: ' + game);
 			p.game = game;
@@ -126,13 +219,25 @@ var p = window.Pentagoo = {
 			}
 			
 			return;
+		} else {
+			p.game = 0;
+			p.clearStatus();
+			$('#pentagoo-board td').removeClass('win');
 		}
 		
-		var move = wave.getState().get('move');
+		var move = state.get('move');
 		if (move){
 			debug('move: ' + move);
 			var m = move.split('-');
 			move = m[0];
+			// If current move is same as previous move, something is wrong.
+			// Also, I suspect Google Wave is being *too* smart by
+			// detecting changes and thinks that it needs to submit some sort
+			// of delta even though my code doesn't tell it to.
+			// The weird thing is that when P1 place (ONE delta submmited),
+			// somehow P2 got TWO deltas (both rotate and place).
+			if (move == p.prevMove) return;
+			p.prevMove = move;
 			var action = m[1];
 			var a1 = action.charAt(0);
 			var a2 = action.charAt(1);
@@ -140,12 +245,12 @@ var p = window.Pentagoo = {
 				var x = a1;
 				var y = a2;
 				p.move = 'p';
-				if (p.lastMarble) $('#s-'+p.lastMarble).removeClass('last');
+				$('#pentagoo-board td').removeClass('last');
 				var space = $('#s-' + y + x);
 				space[0].className = 'p' + player;
 				space.addClass('last');
 				p.boardMatrix[y][x] = p.player;
-				var lastMarble = wave.getState().get('lastMarble');
+				var lastMarble = state.get('lastMarble');
 				if (lastMarble){
 					debug('lastMarble: ' + lastMarble);
 					p.lastMarble = lastMarble;
@@ -158,8 +263,8 @@ var p = window.Pentagoo = {
 				var d = a2;
 				p.boardCover(true);
 				p.rotateButtons(0);
-				if (p.lastMarble) $('#s-'+p.lastMarble).removeClass('last');
-				var lastMarble = wave.getState().get('lastMarble');
+				$('#pentagoo-board td').removeClass('last');
+				var lastMarble = state.get('lastMarble');
 				if (lastMarble){
 					debug('lastMarble: ' + lastMarble);
 					p.lastMarble = lastMarble;
@@ -170,10 +275,25 @@ var p = window.Pentagoo = {
 					p.checkWin();
 					if (!p.game){
 						p.switchPlayer();
+						if (p.player == 1 && viewerID == p.player1){
+							debug('You are player 1, your turn to play');
+							p.playerBoardCover(false);
+						} else if (p.player == 2 && viewerID == p.player2){
+							debug('You are player 2, your turn to play');
+							p.playerBoardCover(false);
+						} else {
+							debug('You are not any player, NOT your turn to play');
+							p.playerBoardCover(true);
+						}
 						p.boardCover(false);
 					}
 				}, time);
 			}
+		} else {
+			p.prevMove = null; // don't remember previous move if there's no current move.
+			p.lastMarble = null;
+			p.boardCover(false);
+			p.rotateButtons(0);
 		}
 	},
 	
@@ -181,9 +301,12 @@ var p = window.Pentagoo = {
 	place: function(x, y){
 		if (p.boardMatrix[y][x] != 0) return;
 		p.lastMarble = '' + y + x;
+		debug('* Submit place move delta');
 		wave.getState().submitDelta({
 			boardMatrix: gadgets.json.stringify(p.boardMatrix),
 			player: '' + p.player,
+			player1: p.player1,
+			player2: p.player2,
 			move: 'place-' + x + y,
 			lastMarble: p.lastMarble
 		});
@@ -191,9 +314,12 @@ var p = window.Pentagoo = {
 	
 	// Rotate sub-board
 	rotate: function(subboard, direction){
+		debug('* Submit rotate move delta');
 		wave.getState().submitDelta({
 			boardMatrix: gadgets.json.stringify(p.boardMatrix),
 			player: '' + p.player,
+			player1: p.player1,
+			player2: p.player2,
 			move: 'rotate-' + subboard + direction
 		});
 	},
@@ -325,6 +451,20 @@ var p = window.Pentagoo = {
 		p.boardState = (state) ? 1 : 0;
 	},
 	
+	// Open/Close the 'player' cover on the board
+	playerBoardCover: function(state){
+		var cover = $('#player-board-cover');
+		cover.setStyle('z-index', (state) ? 150 : 0);
+		p.playerBoardState = (state) ? 1 : 0;
+	},
+	
+	// Open/Close the 'mode' cover on the board
+	modeBoardCover: function(state){
+		var cover = $('#mode-board-cover');
+		cover.setStyle('z-index', (state) ? 500 : 0);
+		p.modeBoardState = (state) ? 1 : 0;
+	},
+	
 	// Check winnnings or draws
 	checkWin: function(){
 		var check_points = p.options.size - p.options.winLength + 1;
@@ -355,6 +495,8 @@ var p = window.Pentagoo = {
 			wave.getState().submitDelta({
 				boardMatrix: gadgets.json.stringify(p.boardMatrix),
 				player: '' + p.player,
+				player1: p.player1,
+				player2: p.player2,
 				game: '' + p.game,
 				winningMarbles: gadgets.json.stringify(arrayUnique(p.winningMarbles))
 			});
@@ -415,14 +557,19 @@ var p = window.Pentagoo = {
 	
 	// Status display
 	setStatus: function(text){
-		var status = $('#status');
-		if(typeof text !== 'undefined' || !text){
-			status[0].innerHTML = text;
-			status.setStyle('display', 'block');
-		} else {
-			status[0].innerHTML = '';
-			status.setStyle('display', 'none');
-		}
+		var status = $('#status').setStyle('display', 'block');
+		status[0].innerHTML = String(text);
+	},
+	
+	clearStatus: function(){
+		var status = $('#status').setStyle('display', 'none');
+		status[0].innerHTML = '';
+	},
+	
+	modeUpdated: function(mode){
+		debug('Mode Updated: ' + (+new Date()) + ' ------------------------------');
+		debug('mode: ' + mode);
+		p.modeBoardCover((mode != wave.Mode.VIEW));
 	}
 	
 };

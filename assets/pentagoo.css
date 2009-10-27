@@ -25,11 +25,23 @@ border: 3px solid #dceefe;
 
 /* BOARD */
 
+#mode-board-cover,
+#player-board-cover,
 #board-cover,
 #pentagoo-board{
 position: absolute;
 width: 520px;
 height: 520px;
+}
+
+#mode-board-cover{
+	background-color: rgba(255,255,255,.1);
+}
+#player-board-cover{
+	cursor: wait;
+}
+#board-cover{
+	cursor: progress;
 }
 
 .subboard-container{
@@ -237,4 +249,30 @@ width: 520px;
 padding: 5px 0;
 text-align: center;
 display: none;
+}
+
+/* PLAY TYPE */
+
+#play-type{
+	position: absolute;
+	width: 520px;
+	height: 520px;
+	text-align: center;
+	line-height: 2em;
+	font-weight: bold;
+	z-index: 151;
+}
+
+#play-type *{
+	font-size: 1.5em;
+}
+
+/* DEBUG */
+
+#debug{
+position: absolute;
+top: 0;
+left: 530px;
+height: 520px;
+overflow: auto;
 }
