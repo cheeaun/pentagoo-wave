@@ -262,7 +262,7 @@ var p = window.Pentagoo = {
 					setTimeout(function(){
 						p.boardCover(false);
 						p.rotateButtons(1);
-					}, 3000);
+					}, 2000);
 					// Delay 3s so that the other participant(s) can 'get it'
 					// and no states to be "missed"
 				}
