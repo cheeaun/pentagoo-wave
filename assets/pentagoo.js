@@ -256,8 +256,8 @@ var p = window.Pentagoo = {
 					p.lastMarble = lastMarble;
 					$('s-' + lastMarble).addClass('last');
 				}
-				p.checkWin();
-				if (!p.game){
+				var game = p.checkWin();
+				if (!game){
 					p.boardCover(true);
 					setTimeout(function(){
 						p.boardCover(false);
@@ -280,8 +280,8 @@ var p = window.Pentagoo = {
 				var time = p.moveRotate(s, d);
 				setTimeout(function(){
 					if (p.lastMarble) $('#s-'+p.lastMarble).addClass('last');
-					p.checkWin();
-					if (!p.game){
+					var game = p.checkWin();
+					if (!game){
 						p.switchPlayer();
 						if (p.player == 1 && viewerID == p.player1){
 							debug('You are player 1, your turn to play');
@@ -509,6 +509,8 @@ var p = window.Pentagoo = {
 				winningMarbles: gadgets.json.stringify(arrayUnique(p.winningMarbles))
 			});
 		}
+		
+		return p.game;
 	},
 
 	// Check validity for 5 straight marbles
