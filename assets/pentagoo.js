@@ -257,7 +257,15 @@ var p = window.Pentagoo = {
 					$('s-' + lastMarble).addClass('last');
 				}
 				p.checkWin();
-				if (!p.game) p.rotateButtons(1);
+				if (!p.game){
+					p.boardCover(true);
+					setTimeout(function(){
+						p.boardCover(false);
+						p.rotateButtons(1);
+					}, 3000);
+					// Delay 3s so that the other participant(s) can 'get it'
+					// and no states to be "missed"
+				}
 			} else if (move == 'rotate'){
 				var s = a1;
 				var d = a2;
