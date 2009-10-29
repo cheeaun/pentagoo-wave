@@ -249,18 +249,19 @@ width: 520px;
 padding: 5px 0;
 text-align: center;
 display: none;
+font-size: 2em;
 }
 
 /* PLAY TYPE */
 
 #play-type{
-	position: absolute;
-	width: 520px;
-	height: 520px;
-	text-align: center;
-	line-height: 2em;
-	font-weight: bold;
-	z-index: 151;
+position: absolute;
+width: 520px;
+height: 520px;
+text-align: center;
+line-height: 2em;
+font-weight: bold;
+z-index: 151;
 }
 
 #play-type *{
