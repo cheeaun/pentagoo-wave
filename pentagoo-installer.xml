@@ -1,0 +1,10 @@
+<extension 
+	name="Pentagoo"
+	thumbnailUrl="http://cheeaun.com/projects/pentagoo/wave/pentagoo-thumbnail.png"
+	description="A two-player abstract strategy game invented by the Swedish company Mindtwister, for two players, who take turns placing a marble onto an an unoccupied space, and then rotating one of the sub-boards either clockwise or counter-clockwise, in a 6x6 board.">
+	<author name="Lim Chee Aun"/>
+	<menuHook location="toolbar" text="Add Pentagoo"
+		iconUrl="http://cheeaun.com/projects/pentagoo/wave/icon.png">
+		<insertGadget url="http://cheeaun.com/projects/pentagoo/wave/pentagoo.xml"/>
+	</menuHook>
+</extension>
