@@ -178,10 +178,13 @@ var p = window.Pentagoo = {
 		if (boardMatrix){
 			debug(boardMatrix);
 			p.boardMatrix = gadgets.json.parse(boardMatrix);
-			var len = p.boardMatrix.length;
+			var beforeBoardMatrix = state.get('beforeBoardMatrix');
+			debug('before: ' + beforeBoardMatrix);
+			var matrix = (beforeBoardMatrix) ? gadgets.json.parse(beforeBoardMatrix) : p.boardMatrix.slice();
+			var len = matrix.length;
 			for (var y=0; y<len; y++){
 				for (var x=0; x<len; x++){
-					var yx = p.boardMatrix[y][x];
+					var yx = matrix[y][x];
 					$('#s-'+y+x)[0].className = yx ? ('p' + yx) : 'space';
 				}
 			}
@@ -247,9 +250,7 @@ var p = window.Pentagoo = {
 				p.move = 'p';
 				$('#pentagoo-board td').removeClass('last');
 				var space = $('#s-' + y + x);
-				space[0].className = 'p' + player;
 				space.addClass('last');
-				p.boardMatrix[y][x] = p.player;
 				var lastMarble = state.get('lastMarble');
 				if (lastMarble){
 					debug('lastMarble: ' + lastMarble);
@@ -262,8 +263,8 @@ var p = window.Pentagoo = {
 					setTimeout(function(){
 						p.boardCover(false);
 						p.rotateButtons(1);
-					}, 2000);
-					// Delay 3s so that the other participant(s) can 'get it'
+					}, p.inView ? 1500 : 0);
+					// Delay 1.5s so that the other participant(s) can 'get it'
 					// and no states to be "missed"
 				}
 			} else if (move == 'rotate'){
@@ -277,7 +278,7 @@ var p = window.Pentagoo = {
 					debug('lastMarble: ' + lastMarble);
 					p.lastMarble = lastMarble;
 				}
-				var time = p.moveRotate(s, d);
+				var time = p.subboardRotationFx(s, d);
 				setTimeout(function(){
 					if (p.lastMarble) $('#s-'+p.lastMarble).addClass('last');
 					var game = p.checkWin();
@@ -308,9 +309,11 @@ var p = window.Pentagoo = {
 	// Place marble
 	place: function(x, y){
 		if (p.boardMatrix[y][x] != 0) return;
+		p.boardMatrix[y][x] = p.player;
 		p.lastMarble = '' + y + x;
 		debug('* Submit place move delta');
 		wave.getState().submitDelta({
+			beforeBoardMatrix: null, // for some reason, I can access the previous state? Damn.
 			boardMatrix: gadgets.json.stringify(p.boardMatrix),
 			player: '' + p.player,
 			player1: p.player1,
@@ -322,13 +325,17 @@ var p = window.Pentagoo = {
 	
 	// Rotate sub-board
 	rotate: function(subboard, direction){
+		var beforeBoardMatrix = gadgets.json.stringify(p.boardMatrix); // copy previous board matrix
+		p.moveRotate(subboard, direction);
 		debug('* Submit rotate move delta');
 		wave.getState().submitDelta({
+			beforeBoardMatrix: beforeBoardMatrix,
 			boardMatrix: gadgets.json.stringify(p.boardMatrix),
 			player: '' + p.player,
 			player1: p.player1,
 			player2: p.player2,
-			move: 'rotate-' + subboard + direction
+			move: 'rotate-' + subboard + direction,
+			lastMarble: p.lastMarble
 		});
 	},
 
@@ -376,8 +383,6 @@ var p = window.Pentagoo = {
 				}
 			}
 		}
-
-		return p.subboardRotationFx(subboard, direction);
 	},
 	
 	FRAMES: 6,
@@ -579,7 +584,8 @@ var p = window.Pentagoo = {
 	modeUpdated: function(mode){
 		debug('Mode Updated: ' + (+new Date()) + ' ------------------------------');
 		debug('mode: ' + mode);
-		p.modeBoardCover((mode != wave.Mode.VIEW));
+		var inView = p.inView = (mode == wave.Mode.VIEW);
+		p.modeBoardCover(!inView);
 	}
 	
 };
