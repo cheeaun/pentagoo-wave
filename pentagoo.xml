@@ -5,10 +5,10 @@
 </ModulePrefs>
 <Content type="html">
 <![CDATA[
-<link rel="stylesheet" href="http://cheeaun.com/projects/pentagoo/wave/assets/pentagoo.css?12">
+<link rel="stylesheet" href="http://cheeaun.com/projects/pentagoo/wave/assets/pentagoo.css?20">
 <script src="http://wave-api.appspot.com/public/wave.js"></script>
 <script src="http://cheeaun.com/projects/pentagoo/wave/assets/domassistant.js"></script>
-<script src="http://cheeaun.com/projects/pentagoo/wave/assets/pentagoo.js?152"></script>
+<script src="http://cheeaun.com/projects/pentagoo/wave/assets/pentagoo.js?157"></script>
 <div id="debug" style="display: none;">DEBUG</div>
 <div id="container">
 
@@ -16,9 +16,18 @@
 	<p>You want to be Player 1 (white, play first) or 2 (black) ?</p>
 	<button id="player-1" title="You play as Player 1.">Player 1</button>
 	<button id="player-2" title="You play as Player 2.">Player 2</button>
+	<div class="section">
+		<p><strong>How to play:</strong></p>
+		<p>The objective is to form five marbles in a row. Each player make two moves; place a marble and rotate one of the subboards. That's all</p>
+		<p>Here's <a href="http://www.youtube.com/watch?v=DqLm2G6FDcM" target="_blank">a nice video</a> to know more.</p>
+	</div>
+	<div class="section">
+		<p>Disclaimer: The game and name Pentago is a trademark of Tomas Flod&eacute;n and copyrighted by <a href="http://www.mindtwisterusa.com/">MindTwister</a>.</p>
+	</div>
 </div>
 
 <div id="status"></div>
+<div id="game-board-cover"></div>
 <div id="mode-board-cover"></div>
 <div id="player-board-cover"></div>
 <div id="board-cover"></div>

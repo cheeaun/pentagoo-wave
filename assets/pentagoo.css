@@ -25,6 +25,7 @@ border: 3px solid #dceefe;
 
 /* BOARD */
 
+#game-board-cover,
 #mode-board-cover,
 #player-board-cover,
 #board-cover,
@@ -35,7 +36,7 @@ height: 520px;
 }
 
 #mode-board-cover{
-	background-color: rgba(255,255,255,.1);
+	background-color: rgba(255,255,255,.2);
 }
 #player-board-cover{
 	cursor: wait;
@@ -262,10 +263,23 @@ text-align: center;
 line-height: 2em;
 font-weight: bold;
 z-index: 151;
+background-color: rgba(255,255,255,.5);
 }
 
-#play-type *{
+#play-type p,
+#play-type button
+#play-type li{
 	font-size: 1.5em;
+}
+
+#play-type .section{
+	color: #999;
+	background-color: rgba(255,255,255,.5);
+	margin: 2em 3em 0;
+	padding: 1px 1em;
+	font-size: .8em;
+	border: 1px solid #efefef;
+	line-height: 1.4em;
 }
 
 /* DEBUG */

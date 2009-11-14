@@ -125,7 +125,11 @@ var p = window.Pentagoo = {
 		
 		// only show this to The One
 		if (!p.debugRunOnce){
-			if (/cheeaun.*?@/i.test(viewerID)) $('#debug').setStyle('display', 'block');
+			if (/cheeaun.*?@wave/i.test(viewerID)){
+				$('#debug').setStyle('display', 'block');
+			} else {
+				DEBUG = false;
+			}
 			p.debugRunOnce = true;
 		}
 		
@@ -208,7 +212,7 @@ var p = window.Pentagoo = {
 			}
 
 			p.setStatus(status);
-			p.boardCover(true);
+			p.gameBoardCover(true);
 			
 			if (winningMarbles){
 				p.winningMarbles = winningMarbles = gadgets.json.parse(winningMarbles);
@@ -225,6 +229,7 @@ var p = window.Pentagoo = {
 		} else {
 			p.game = 0;
 			p.clearStatus();
+			p.gameBoardCover(false);
 			$('#pentagoo-board td').removeClass('win');
 		}
 		
@@ -478,6 +483,13 @@ var p = window.Pentagoo = {
 		p.modeBoardState = (state) ? 1 : 0;
 	},
 	
+	// Open/Close the 'game' cover on the board
+	gameBoardCover: function(state){
+		var cover = $('#game-board-cover');
+		cover.setStyle('z-index', (state) ? 600 : 0);
+		p.gameBoardState = (state) ? 1 : 0;
+	},
+	
 	// Check winnnings or draws
 	checkWin: function(){
 		var check_points = p.options.size - p.options.winLength + 1;
@@ -506,6 +518,7 @@ var p = window.Pentagoo = {
 		
 		if (p.game){
 			wave.getState().submitDelta({
+				beforeBoardMatrix: null,
 				boardMatrix: gadgets.json.stringify(p.boardMatrix),
 				player: '' + p.player,
 				player1: p.player1,
